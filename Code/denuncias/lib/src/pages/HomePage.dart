@@ -1,3 +1,4 @@
+import 'package:denuncias/src/custom/CustomDialogSearch.dart';
 import 'package:denuncias/src/custom/CustomFlatButton.dart';
 import 'package:denuncias/src/util/ColorList.dart';
 import 'package:denuncias/src/util/Text.dart';
@@ -115,6 +116,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   nosotros,
                   style: TextStyle(color: textColor, fontSize: 17),
+                  textAlign: TextAlign.justify,
                 ),
               ),
             ),
@@ -127,44 +129,7 @@ class _HomePageState extends State<HomePage> {
         context: context,
         barrierDismissible: true,
         builder: (context) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            backgroundColor: Color.fromARGB(
-              166,
-              222,
-              218,
-              218,
-            ),
-            title: Center(
-                child: Text('Ingrese ID',
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400))),
-            content: SizedBox(
-              height: 200,
-              child: Center(
-                child: SizedBox(
-                  height: 30,
-                  child: Placeholder(color: Colors.white),
-                ),
-              ),
-            ),
-            actions: <Widget>[
-              Center(
-                child: FlatButton(
-                    color: greenButton,
-                    onPressed: () {},
-                    child: Text('Buscar',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300))),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width-100,)
-            ],
-          );
+          return CustomDialogSearch();
         });
   }
 }
