@@ -4,12 +4,14 @@ import 'package:denuncias/src/util/ColorList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ActionPage extends StatefulWidget {
+class TestPage extends StatefulWidget {
+  TestPage({Key key}) : super(key: key);
+
   @override
-  State<ActionPage> createState() => _ActionPageState();
+  _TestPageState createState() => _TestPageState();
 }
 
-class _ActionPageState extends State<ActionPage> {
+class _TestPageState extends State<TestPage> {
   bool contactar = false;
   String textFieldData = "";
   Size screenSize;
@@ -74,7 +76,6 @@ class _ActionPageState extends State<ActionPage> {
                           ? 'Crear denuncia'
                           : 'Añadir datos de contacto',
                       fontSize: !contactar ? null : 25,
-                      color: 0,
                     ),
                   ),
                 ),
@@ -146,7 +147,6 @@ class _ActionPageState extends State<ActionPage> {
                   onPress: () {},
                   text: 'Adjuntar archivo',
                   fontSize: 17,
-                  color: 3,
                 ),
               ),
             ),
@@ -211,6 +211,7 @@ class _ActionPageState extends State<ActionPage> {
 
   Future<bool> _onCall() {
     contactar = false;
+    print('Salio');
     setState(() {});
     return new Future<bool>.value(true);
   }

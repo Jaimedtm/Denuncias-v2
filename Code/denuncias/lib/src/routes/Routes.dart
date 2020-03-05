@@ -1,6 +1,7 @@
 import 'package:denuncias/src/pages/ActionPage.dart';
 import 'package:denuncias/src/pages/ContactPage.dart';
 import 'package:denuncias/src/pages/HomePage.dart';
+import 'package:denuncias/src/pages/TestPage.dart';
 import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> getRoutes(){
@@ -9,7 +10,8 @@ Map<String, WidgetBuilder> getRoutes(){
 
     '/'         : (BuildContext context) => HomePage(),
     'Action'    : (BuildContext context) => ActionPage(),
-    'Contact'    : (BuildContext context) => ContactPage(),
+    'Contact'   : (BuildContext context) => ContactPage(),
+    'Test'      : (BuildContext context) => TestPage(),
 
   };
 }

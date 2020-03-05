@@ -67,6 +67,15 @@ class _FlatBeatyButton extends State<CustomFlatButton> with SingleTickerProvider
       
       break;
 
+      case 3:
+
+        borderColor = orangeButton;
+        textColor1 = orangeButton;
+        textColor2 = backgroundColor;
+        infillColor = orangeButton;
+      
+      break;
+
       case 4:
 
         borderColor = backgroundColor;
