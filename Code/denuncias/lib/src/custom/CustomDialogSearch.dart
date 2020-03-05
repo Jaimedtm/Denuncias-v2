@@ -12,6 +12,7 @@ class _CustomDialogSearchState extends State<CustomDialogSearch> {
 
   String idText;
   bool validID=false;
+  bool startToSearch=false;
 
   @override
   void initState() {
@@ -22,6 +23,11 @@ class _CustomDialogSearchState extends State<CustomDialogSearch> {
   @override
   Widget build(BuildContext context) {
 
+    return !startToSearch ? _inputView() : _findView();
+
+  }
+
+  Widget _inputView(){
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       backgroundColor: Color.fromARGB(
@@ -84,7 +90,15 @@ class _CustomDialogSearchState extends State<CustomDialogSearch> {
         Center(
           child: FlatButton(
               color: Color(0xBF81B015),
-              onPressed: validID ? () {}:null,
+              onPressed: validID ? () {
+
+                FocusScope.of(context).requestFocus(new FocusNode());
+                startToSearch=true;
+                setState(() {
+                  
+                });
+              }:null,
+              
               child: Text('Buscar',
                   style: TextStyle(
                       fontSize: 20,
@@ -97,6 +111,32 @@ class _CustomDialogSearchState extends State<CustomDialogSearch> {
         )
       ],
     );
+  }
 
+  Widget _findView() {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      backgroundColor: Color.fromARGB(
+        166,
+        222,
+        218,
+        218,
+      ),
+      title: Center(
+          child: Text('Buscando...',
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400))),
+      content: SizedBox(
+        height: 100,
+        child: Center(
+          child: SizedBox(
+            height: 30,
+            child: Image.asset('Res/loader.gif',color: textColor, fit: BoxFit.fill,),
+          ),
+        ),
+      ),
+    );
   }
 }

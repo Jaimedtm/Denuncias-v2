@@ -10,6 +10,11 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
 
+  FocusNode nameFocusNode= FocusNode();
+  FocusNode firtsNameFocusNode= FocusNode();
+  FocusNode emailFocusNode= FocusNode();
+  FocusNode numberFocusNode= FocusNode();
+
   String nombre = "";
   String apellidos = "";
   String email = "";
@@ -19,6 +24,11 @@ class _ContactPageState extends State<ContactPage> {
   void initState() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -38,14 +48,22 @@ class _ContactPageState extends State<ContactPage> {
             child: Column(
               
           children: <Widget>[
-
+            //Aquí empieza el text field
             Padding(
               padding: const EdgeInsets.only(top:5),
-              child: TextField(
+              child: TextFormField(
+                focusNode: nameFocusNode,
+                onFieldSubmitted: (text){
+                  nameFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(firtsNameFocusNode);
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Nombre',
                 ),
+                autofocus: true,
+                textInputAction: TextInputAction.next,
+                autocorrect: false,
                 onChanged: (name) {
                   setState(() {
                     nombre = name;
@@ -56,7 +74,15 @@ class _ContactPageState extends State<ContactPage> {
 
             Padding(
               padding: const EdgeInsets.only(top:20),
-              child: TextField(
+              child: TextFormField(
+
+                focusNode: firtsNameFocusNode,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (text){
+                  firtsNameFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(emailFocusNode);
+                },
+                autocorrect: false,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Apellidos',
@@ -71,7 +97,14 @@ class _ContactPageState extends State<ContactPage> {
 
             Padding(
               padding: const EdgeInsets.only(top:20),
-              child: TextField(
+              child: TextFormField(
+                focusNode: emailFocusNode,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (text){
+                  emailFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(numberFocusNode);
+                },
+                autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -87,7 +120,9 @@ class _ContactPageState extends State<ContactPage> {
 
             Padding(
               padding: const EdgeInsets.only(top:20),
-              child: TextField(
+              child: TextFormField(
+                focusNode: numberFocusNode,
+                textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -101,7 +136,7 @@ class _ContactPageState extends State<ContactPage> {
               ),
             ),
 
-            SizedBox(height: MediaQuery.of(context).size.height-500,),
+            SizedBox(height: MediaQuery.of(context).size.height-(MediaQuery.of(context).size.height*.58),),
 
             Container(
               //color: Colors.red,
