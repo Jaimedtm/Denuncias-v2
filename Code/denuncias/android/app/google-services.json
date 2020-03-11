@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "438618870195",
+    "firebase_url": "https://test-denuncias.firebaseio.com",
+    "project_id": "test-denuncias",
+    "storage_bucket": "test-denuncias.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438618870195:android:bcea2bafe34282d5c13bc6",
+        "android_client_info": {
+          "package_name": "com.smartable.denuncias"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438618870195-qp0sklli59jal1b6pa2qjf35eetqt819.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartable.denuncias",
+            "certificate_hash": "290cc7bc8c552ddb9b74763158ccc8679681fa50"
+          }
+        },
+        {
+          "client_id": "438618870195-i81uqp9dtkhbcoauf3en2jacvsetrapm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGZax4xCw9vjN6_kzeVpX220vl-vHbI5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438618870195-i81uqp9dtkhbcoauf3en2jacvsetrapm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

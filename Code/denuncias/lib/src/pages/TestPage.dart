@@ -1,8 +1,12 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:denuncias/src/custom/CustomAlertDialog.dart';
+import 'package:denuncias/src/custom/CustomDialogSend.dart';
 import 'package:denuncias/src/custom/CustomFlatButton.dart';
 import 'package:denuncias/src/util/ColorList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+//import 'package:encrypt/encrypt.dart' as enc;
 
 class TestPage extends StatefulWidget {
   TestPage({Key key}) : super(key: key);
@@ -12,11 +16,17 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
+  TextEditingController textController = TextEditingController();
+  String generatedID;
   bool contactar = false;
   String textFieldData = "";
   Size screenSize;
   bool isFocused = false;
   FocusNode focusNode = FocusNode();
+
+  HttpsCallable callable = CloudFunctions.instance
+      .getHttpsCallable(functionName: 'testFuction')
+        ..timeout = const Duration(seconds: 30);
 
   @override
   void initState() {
@@ -48,7 +58,7 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Denunciar',
+          'Test Page',
           style: TextStyle(
               color: textColor, fontSize: 30, fontWeight: FontWeight.w300),
         ),
@@ -62,15 +72,31 @@ class _TestPageState extends State<TestPage> {
               _txtField(_onWillPop),
               _buttonArea(),
               Padding(
-                padding: EdgeInsets.only(top: screenSize.height*0.27),
+                padding: EdgeInsets.only(top: screenSize.height * 0.27),
                 child: SizedBox(
                   height: 50,
                   child: Container(
                     child: CustomFlatButton(
                       onPress: () {
                         //añadir else para implementar solo la publicación
-                      if (contactar == true)
-                        Navigator.pushNamed(context, 'Contact');
+                        if (contactar == true)
+                          Navigator.pushNamed(context, 'Contact');
+                        else {
+                          //TODO: create a future builder
+                          //final enc.Key ky = enc.Key.fromLength(32);
+                          //final enc.IV iv = enc.IV.fromLength(8);
+                          //final enc.Encrypter encrypter = enc.Encrypter(enc.Salsa20(ky));
+
+                          //print(encrypter.encrypt('Taquitos',iv: iv).toString());
+
+                          //_testfire2();
+
+                          _createComplaint(context);
+
+                          setState(() {
+                            textController.clear();
+                          });
+                        }
                       },
                       text: !contactar
                           ? 'Crear denuncia'
@@ -97,6 +123,7 @@ class _TestPageState extends State<TestPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 5),
           child: TextField(
+            controller: textController,
             focusNode: focusNode,
             autocorrect: true,
             keyboardType: TextInputType.multiline,
@@ -207,6 +234,59 @@ class _TestPageState extends State<TestPage> {
             ));
       },
     );
+  }
+
+  void _testfire2() async {
+    try {
+      final HttpsCallableResult result = await callable.call(<String, dynamic>{
+        'info': textFieldData,
+        'day': DateTime.now().day,
+        'month': DateTime.now().month,
+        'year': DateTime.now().year,
+        'time': getTimeInString(),
+      });
+      String resp = result.data.toString();
+      generatedID = resp.substring(resp.lastIndexOf(':') + 2, resp.length - 1);
+      print(generatedID);
+      textController.text = generatedID;
+      setState(() {});
+    } on CloudFunctionsException catch (e) {
+      print(e.details.toString());
+      print('No se que tranza carnal');
+    } catch (e) {
+      print('Yo tampoco se que pedo carnal :c');
+    }
+  }
+
+  String getTimeInString() {
+    String minutes = (DateTime.now().minute >= 10)
+        ? DateTime.now().minute.toString()
+        : "0" + DateTime.now().minute.toString();
+    String seconds = (DateTime.now().second >= 10)
+        ? DateTime.now().second.toString()
+        : "0" + DateTime.now().second.toString();
+
+    return DateTime.now().hour.toString() + ":" + minutes + ':' + seconds;
+  }
+
+  void _createComplaint(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CustomDialogSend(
+            barrier: false,
+            fadeInAnimation: true,
+            title: SizedBox.expand(
+              child:Container(
+                color: Colors.amber,
+                child: Icon(
+                Icons.warning,
+                color: Colors.white,
+                size: 60,
+                ),
+              )),
+          );
+        });
   }
 
   Future<bool> _onCall() {

@@ -69,6 +69,7 @@ class _ActionPageState extends State<ActionPage> {
                         //añadir else para implementar solo la publicación
                       if (contactar == true)
                         Navigator.pushNamed(context, 'Contact');
+                      else Navigator.pushNamed(context, 'Test');
                       },
                       text: !contactar
                           ? 'Crear denuncia'

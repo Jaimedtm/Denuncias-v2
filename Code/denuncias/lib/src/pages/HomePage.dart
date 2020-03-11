@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 /*
   * TODO:
-  * 
+  *  Agregar a un SingleChildScroll esta pantalla
   * 
   */
 

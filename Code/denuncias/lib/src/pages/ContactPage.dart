@@ -136,7 +136,7 @@ class _ContactPageState extends State<ContactPage> {
               ),
             ),
 
-            SizedBox(height: MediaQuery.of(context).size.height-(MediaQuery.of(context).size.height*.58),),
+            SizedBox(height: MediaQuery.of(context).size.height-(MediaQuery.of(context).size.height*.6),),
 
             Container(
               //color: Colors.red,
